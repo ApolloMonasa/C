@@ -1,0 +1,95 @@
+/*************************************************************************
+	> File Name: database.c
+	> Author: HDU-Apollo
+	> Mail: xyl6716@outlook.com
+	> Created Time: Sun 09 Mar 2025 07:58:25 PM CST
+ ************************************************************************/
+
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<time.h>
+#include<ctype.h>
+#include<inttypes.h>//<stdint.h>
+#include<stdarg.h>
+#include<database.h>
+
+
+static enum OP_TYPE choose_table() {
+    
+    return TABLE_USAGE;
+}
+
+static enum OP_TYPE table_usage() {
+    printf("1 : List Table\n");  
+    printf("2 : Add One Item To Table\n");  
+    printf("3 : Modify An Item\n");  
+    printf("4 : Delete One Item From Table\n");  
+    printf("5 : Back\n"); 
+    int x;
+    do {
+        printf("Input : ");
+        scanf("%d", &x);
+    } while((x < 1 || x > 5) && printf("Invalid Input!\n"));
+    if (x == 1) return LIST_TABLE;
+    if (x == 2) return ADD_TABLE;
+    if (x == 3) return MODIFY_TABLE;
+    if (x == 4) return DELETE_TABLE;
+    return CHOOSE_TABLE;
+}
+
+static enum OP_TYPE list_table() {
+    printf("List table\n");
+    return TABLE_USAGE;
+}
+
+static enum OP_TYPE add_table() {
+    printf("Add table\n");
+    return TABLE_USAGE;
+}
+
+static enum OP_TYPE modify_table() {
+    printf("Modify table\n");
+    return TABLE_USAGE;
+}
+
+static enum OP_TYPE delete_table() {
+    printf("Delete table\n");
+    return TABLE_USAGE;
+}
+
+enum OP_TYPE run(enum OP_TYPE status) {
+    switch (status) {
+        case CHOOSE_TABLE : {
+            return choose_table();
+        } break;
+        case TABLE_USAGE : {
+            return table_usage();
+        } break;
+        case LIST_TABLE : {
+            return list_table();
+        } break;
+        case ADD_TABLE : {
+            return add_table();
+        } break;
+        case MODIFY_TABLE : {
+            return modify_table();
+        } break;
+        case DELETE_TABLE : {
+            return delete_table();
+        } break;
+        default : {
+            printf("Unknown Status : %d\n", status);
+        } break;
+    }
+    return OP_END;
+}
+
+void run_database() {
+    enum OP_TYPE status = CHOOSE_TABLE;
+    while (1) {
+        status = run(status);
+        if(status == OP_END) break;
+    }
+    return ;
+}
