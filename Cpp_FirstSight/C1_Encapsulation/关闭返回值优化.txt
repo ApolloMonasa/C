@@ -1,0 +1,7 @@
+HDUSai@TencentCloud C1_Encapsulation % g++ -fno-elide-constructors 34.rvo.cpp                                                                                                 [1]
+HDUSai@TencentCloud C1_Encapsulation % ./a.out                                                                                                                                [0]
+default constructor
+f() : temp :0x7ffd5d6a24c7
+copy constructor
+copy constructor
+a : 0x7ffd5d6a24e6
