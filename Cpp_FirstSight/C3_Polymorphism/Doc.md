@@ -94,5 +94,41 @@ struct B : A {
 };
 ```
 
-## 虚函数和纯虚函数
+## 纯虚函数
+
+相较于普通的虚函数，它最大的不一样就是它不需要函数体，而是一个**= 0**。
+但是它的所有子类中一定要有这个函数的实现，否则就是一个抽象类（不能创建对象的类）
+可以用来设计对象的功能接口
+
+```cpp
+class Flyable {
+public:
+    virtual void fly() = 0;
+};
+
+class Animal {
+public:
+    virtual void run() = 0;
+};
+
+class Cat : public Animal {
+public:
+    void run() override {
+        cout << "Cat run\n";
+    }
+};
+
+class Bat : public Animal, public Flyable {
+public:
+    void fly() override {
+        cout << "Bat fly\n";
+    }
+    void run() override {
+        cout << "Bat run\n";
+    }
+};
+```
+
+正如之前讲继承所说的，类继承设计时，最好继承一个实体类，多个抽象类（这里就是我们的功能类）
+
 
