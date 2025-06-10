@@ -149,4 +149,62 @@ void f1(Flyable &obj) {
 
 正如之前讲继承所说的，类继承设计时，最好继承一个实体类，多个抽象类（这里就是我们的功能类）
 
+## C++类型转换
 
+>C语言已经有强制类型转换，那么，为什么还要费老大劲开发这四种类型转换呢？
+
+第一：安全性差
+
+第二：可读性差
+
+
+### 静态转换：static_cast(主要，其他三种是补充,做到识别何种场景需要补充使用以下三种即可)
+
+1. 做的是同类之间的转换，比如long\int\double\float\short
+
+2. 也可以做const和非const变量的类型转换
+
+3. 不能进行指针类型之间的转换
+
+4. 不能进行const <type> *到 <type> *的类型转换
+
+5. 存在继承关系（可以是父子，可以是爷孙，但是菱形继承的爷孙不行，兄弟不行）的类是同类的类，可以转换
+
+6. 可以在类中定义转换运算符
+
+```cpp
+//1
+static_cast<double>(要转换的变量);
+//2
+const int cx = 45;
+int noncx = static_cast<int>(cx);
+//3
+int *x = new int;
+float *fx = static_cast<float *>(x);
+//4
+const int *cx = new int;
+int *non_cx = static_cast<int *>(cx);
+//2
+int * const p1 = new int;
+int *p2 = static_cast<int *>(p1);
+
+//5
+class Base {};
+class A : public Base{};
+class B : public Base {};
+class End : public A, public B {};
+class AA : public A {};
+void run() {
+    Base *p1 = new Base;
+    AA *p2 = static_cast<AA *>(p1);
+    return ;
+}
+```
+
+
+
+### 动态转换：dynamic_cast
+
+### 常量转换：const_cast
+
+### 指针转换：reinterpret_cast
