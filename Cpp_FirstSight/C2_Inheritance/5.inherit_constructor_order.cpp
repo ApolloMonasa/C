@@ -27,7 +27,7 @@ public:
     Base() {
         cout << "Base constructor" << endl;
     }
-    ~Base() {
+    virtual ~Base() {
         cout << "Base destructor" << endl;
     }
 };
@@ -37,7 +37,7 @@ public:
         data = new int[10];
         cout << "A constructor, data : " << data  << endl;
     }
-    ~A() {
+    ~A() override {
         if(data != nullptr) delete[] data;
         cout << "A destructor" << endl;
     }
@@ -50,7 +50,7 @@ public:
         cout << "B constructor\n";
 
     }
-    ~B() {
+    ~B() override {
         cout << "B destructor\n";
     }
 };
@@ -60,7 +60,7 @@ public:
         cout << "C constructor\n";
 
     }
-    ~C() {
+    ~C() override {
         cout << "C destructor\n";
     }
 };
@@ -102,13 +102,17 @@ void func3() {
      * 暂时留下一个悬念，留待后面讲解
      * 当不知道具体类型的时候，如何正确调用析构函数
     */
+    /*
+    * 好的下一章学完虚函数回来解决了
+    * 析构函数一定要是虚函数
+    * */
 
 }
 
 int main() {
     srand(time(0));
-    func1();
-    func2();
+    //func1();
+    //func2();
     func3();
     return 0;
 }
