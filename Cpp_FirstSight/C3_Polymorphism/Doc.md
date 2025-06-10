@@ -48,6 +48,51 @@ int main() {
 
 实际上对虚函数没有语法上的作用,但是它可以将一些运行时的错误提前暴露在编译阶段。
 是一个很好的习惯，不用它是一个很坏的习惯。
+```cpp
+class Base {
+public:
+    virtual void test() {
+        cout << "Base class test" << endl;
+    }
+    virtual void foo() {
+        cout << "Base class foo" << endl;
+    }
+};
+class A :public Base {
+public:
+    void test() {
+        cout << "A class test" << endl;
+    }
+
+    void foo() override {
+        cout << "A class foo\n";
+    }
+};
+```
+
+
+### final关键字
+
+用来定义最后一个被重写的虚函数版本。**We cannot override a final function**
+
+```cpp
+
+struct Base {
+    virtual void test() {
+        cout << "Base" << endl;
+        return ;
+    }
+};
+
+struct A : Base {
+    void test() override final {
+        cout << "A" << endl;
+    }
+};
+
+struct B : A {
+};
+```
 
 ## 虚函数和纯虚函数
 
