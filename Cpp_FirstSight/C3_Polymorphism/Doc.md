@@ -205,6 +205,43 @@ void run() {
 
 ### 动态转换：dynamic_cast
 
+> 什么情况才用得到？
+> 防止把原本不是某类型的变量的地址转换成该类型的地址
+
+如果是相同类型的指针转换，就会成功，否则就会返回一个空地址
+
+#### Example
+
+```cpp
+class Base {
+public:
+    virtual ~Base() {}
+};
+
+class A : public Base {};
+class B : public Base {
+public:
+    void output() {
+        cout << "x = " << x << ", y = " << y << endl;
+        return ;
+    }
+    int x, y;
+};
+
+int main() {
+    A *p1 = new A;
+    Base *p2 = p1;//隐式转换
+    B *p3 = dynamic_cast<B *>(p2);
+    if(p3 == nullptr) {
+        cout << "convert failed\n";
+    }
+    else p3->output();
+    return 0;
+}
+```
+
+那么换个方向呢？就是把B换成A, 实际上不行。
+
 ### 常量转换：const_cast
 
 ### 指针转换：reinterpret_cast
