@@ -246,4 +246,19 @@ int main() {
 
 ### 常量转换：const_cast
 
+用于通过指针改变某变量的const属性，加上或者消除都行
+
+```cpp
+int main() {
+    const int x = 123;
+    const int *p1 = &x;
+    //int *p2 = p1;
+    //int *p2 = static_cast<int *>(p1);
+    int *p2 = const_cast<int *>(p1);
+    *p2 = 456;
+    cout << *p2  << endl;
+    return 0;
+}
+```
+
 ### 指针转换：reinterpret_cast
