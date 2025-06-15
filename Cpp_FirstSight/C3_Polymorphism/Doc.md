@@ -265,4 +265,47 @@ int main() {
 
 > 直译过来就是重新解释，原因是用于直接解释二进制位，不进行数据转换。（位级转换）
 
+就是用来进行指针转换的
 
+
+## 虚函数的对象模型
+
+有虚函数的对象头部会存储一个地址，是虚函数表的地址，存贮着不同的虚函数
+所以虚函数能够跟着对象走，而不是跟着类走
+
+并且一个类的虚函数是存在一张表里面的
+
+```cpp
+class Base {
+public:
+    virtual void test() {
+        cout << "test : Class Base " << endl;
+    }
+    virtual void test2(int x) {
+        cout << "test2 : Class Base " << x << endl;
+    }
+
+};
+
+class A : public Base {
+public:
+    void test() override {
+        cout << "test : Class A\n";
+    }
+    void test2(int x) override {
+        cout << "test2 : Class A " << x << endl;
+    }
+};
+
+typedef void (*funcT)();
+typedef void (*funcT2)(int);
+
+void test1() {
+    A a;
+    cout << "virtual table address : " << ((funcT **)(&a))[0] << endl;;
+    ((funcT **)(&a))[0][0]();
+
+    a.test2(100);
+    ((funcT2 **)(&a))[0][1](100);//传参失败,这个内容涉及this指针的深入理解
+}
+```
