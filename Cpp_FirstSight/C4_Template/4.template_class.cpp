@@ -48,7 +48,19 @@ public:
         return ;
     }
 };
-
+//偏特化,保留模板参数
+template<typename T>
+class Point<T *> {
+public:
+    T *x, *y;
+    Point() = default;
+    Point(T *x, T *y) : x(x), y(y) {}
+    template<typename U>
+    void output(U u) {
+        cout << "(" << *x << ", " << *y << ")" << u <<  endl;
+        return ;
+    }
+};
 
 template<typename T>
 ostream &operator<<(ostream &os, const Point<T> &p ) {
@@ -66,6 +78,11 @@ int main() {
     Point<int> int_point;
     Point<double> double_point;
     Point<string> string_point;
+    Point<int *> int_pointter_point;
+    int a = 999, b = 888, *c = &a, *d = &b;
+    int_pointter_point = {c, d};
+
+
     cout << sizeof(int_point) << endl;
     cout << sizeof(double_point) << endl;
     int_point = {3, 4};
@@ -79,6 +96,7 @@ int main() {
     int_point.output("abc");
     double_point.output(1314);
     string_point.output(123);
+    int_pointter_point.output("int *");//我们希望输出指针指向的值，这时候使用偏特化
 
     return 0;
 }
