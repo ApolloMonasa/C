@@ -34,8 +34,22 @@ void Type(T *a) {
     return ;
 }
 
+template<typename T, typename U>
+T test_template_param(U a) {
+    cout << "In template : a = " << a << endl;
+    return 2 * a;
+}
+
+void func1(int (* func)(double)){
+    int val = func(12.3);
+    cout << "In func1 : func(12.3) = " << val << endl;
+    return ;
+}
 
 int main() {
+
+    func1(test_template_param);
+
     int a = 122;
     Type(a);
     double b = 12.3;
@@ -57,5 +71,7 @@ int main() {
     Type<int>(p1);
     Type<double>(p2);
 
+    //间接推导
+    //依靠除了传参信息之外的信息确定，比如其他函数调用
 
 }
