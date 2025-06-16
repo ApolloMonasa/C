@@ -73,6 +73,14 @@ ostream &operator<<(ostream &os, const Point<string> &p ) {
     os << "string : (" << p.x << ", " << p.y <<")";
     return os;
 }
+//模板函数偏特化假象
+template<typename T>
+ostream &operator<<(ostream &os, const Point<T *> &p ) {
+    os << "int * : (" << *p.x << ", " << *p.y <<")";
+    return os;
+}
+//本质上模板函数没有偏特化
+//只是函数重载罢了
 
 int main() {
     Point<int> int_point;
@@ -91,6 +99,7 @@ int main() {
     cout << int_point << endl;
     cout << double_point << endl;
     cout << string_point << endl;
+    cout << int_pointter_point << endl;
     //没有参数的模板函数是全特化,当成原来模板的补丁
     //面对特殊需求，需要用到全特化
     int_point.output("abc");
